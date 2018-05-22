@@ -6,7 +6,7 @@ MW1::MW1(QWidget *parent) :
     ui(new Ui::MW1)
 {
     msPerFrame = 500;
-    m_timerID=startTimer(50);
+    m_timerID=startTimer(100);
     ui->setupUi(this);
 
      //setWindowFlags(Qt::FramelessWindowHint);
@@ -41,8 +41,13 @@ void MW1::keyPressEvent(QKeyEvent *event)
     {
         if(!pl.isShooting)pl.setShoot();
     }
+    else if(event->key() == Qt::Key_J)
+    {
+        if(!pl.isJumping)pl.setJump();
 
-    //update();
+    }
+    //qDebug()<<event->key();
+    update();
 }
 void MW1::paintEvent(QPaintEvent *event)
 {
@@ -59,5 +64,7 @@ void MW1::timerEvent(QTimerEvent *event)
     {
        if(pl.isShooting) pl.Shoot();
         update();
+        if(pl.isJumping) pl.Jump();
+         update();
     }
 }

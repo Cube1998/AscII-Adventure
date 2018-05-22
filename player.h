@@ -16,9 +16,13 @@ public:
     int y_blocks;
     int disL2R;
     int rangeOfFire;
-    int stepOfAction;//动作中的第几步
+    int HeightOfJump;
+    int stepOfShoot;//射击中的第几步
+    int stepOfJump;//跳跃中的第几步
     //bool isBacking ;//描述了右半边是否在回来
     bool isShooting ;//描述是否正在发射当中
+
+    bool isJumping;
 
     bool isIncluded ;
 
@@ -35,6 +39,8 @@ public:
     void Paint(QPainter &painter);
     void Shoot();//射击函数
     void setShoot();
+    void setJump();
+    void Jump();
 
 };
 

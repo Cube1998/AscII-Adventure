@@ -10,11 +10,14 @@ Player::Player()
     this->Step = 1;
     this->disL2R = 0;
     this->rangeOfFire = 7;
-    this->stepOfAction = 0;
+    this->stepOfShoot = 0;
+    this->HeightOfJump = 4;
+    this->stepOfJump = 0;
    // this->isBacking = false;
    // this->isGoing = true;
     this->isIncluded = false;
     this->isShooting = false;
+    this->isJumping = false ;
     this->CauculateArea();
 
 
@@ -57,12 +60,13 @@ void Player::Paint(QPainter &painter)
    // painter.begin(this);
    // painter.begin(QPaintDevice );
     painter.setPen(QPen(Qt::black));
-    painter.drawImage(this->Area,QImage("/Users/cube.z/Qt Coding/AscII/2.png"),QRect(0,0,32,64));
-    painter.drawImage(this->AreaR,QImage("/Users/cube.z/Qt Coding/AscII/2.png"),QRect(0,0,32,64));
+    painter.drawImage(this->Area,QImage("/Users/cube.z/Qt Coding/AscII/SmallGreen.png"),QRect(0,0,32,64));
+    painter.drawImage(this->AreaR,QImage("/Users/cube.z/Qt Coding/AscII/HLB.png"),QRect(0,0,32,64));
     //painter.drawRect(this->Area);
     //painter.drawRect(this->AreaR);
    // painter.end(this);
-    qDebug()<<this->isShooting<<this->disL2R<<this->stepOfAction;
+    //qDebug()<<this->isShooting<<this->disL2R<<this->stepOfShoot;
+    //qDebug()<<this->isShooting<<this->stepOfShoot;
 
 }
 void Player::setShoot()
@@ -71,8 +75,19 @@ void Player::setShoot()
 }
 void Player::Shoot()
 {
-    if(stepOfAction<rangeOfFire){stepOfAction++;disL2R++;this->CauculateArea();}
-    else{stepOfAction++;disL2R--;this->CauculateArea();}
-    if(stepOfAction==2*rangeOfFire){stepOfAction = 0;setShoot();}
+    if(stepOfShoot<rangeOfFire){stepOfShoot++;disL2R++;this->CauculateArea();}
+    else{stepOfShoot++;disL2R--;this->CauculateArea();}
+    if(stepOfShoot==2*rangeOfFire){stepOfShoot = 0;setShoot();}
 
+}
+void Player::setJump()
+{
+    isJumping = !isJumping;
+}
+void Player::Jump()
+{
+
+    if(stepOfJump<HeightOfJump){stepOfJump++;this->y_pos--;this->CauculateArea();}
+    else{stepOfJump++;this->y_pos++;this->CauculateArea();}
+    if(stepOfJump==2*HeightOfJump){stepOfJump = 0;setJump();}
 }
